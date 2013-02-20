@@ -1,0 +1,6 @@
+levels:
+
+  - name: Level 1
+    points: 0
+  - name: Level 2
+    points: 10
