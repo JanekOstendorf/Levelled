@@ -197,6 +197,24 @@ public class Storage {
 
 	}
 
+	/**
+	 * Does this user exist in the storage file?
+	 * @param player Player
+	 * @return Does this user exist in the storage file?
+	 */
+	public boolean playerExists(Player player) {
+
+		try {
+			return this.configuration.contains("storage."+player.getName());
+		}
+		catch(NullPointerException e) {
+
+			return false;
+
+		}
+
+	}
+
 	public YamlConfiguration getConfiguration() {
 		return this.configuration;
 	}

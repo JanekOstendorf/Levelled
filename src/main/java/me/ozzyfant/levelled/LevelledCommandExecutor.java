@@ -6,6 +6,7 @@
 package me.ozzyfant.levelled;
 
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -62,17 +63,39 @@ public class LevelledCommandExecutor implements CommandExecutor {
 			this.cmdStatus(player, command, label, args);
 
 		}
-
 		else if(args.length == 1) {
 
 
-			String[] cmdArgs = null;
+			String[] cmdArgs = new String[args.length - 1];
 			cmdArgs = Arrays.asList(args).subList(1, args.length).toArray(cmdArgs);
 
 			// Help command
 			if(args[0].equalsIgnoreCase("help")) {
 
 				this.cmdHelp(player, command, label, cmdArgs);
+
+			}
+			else if(args[0].equalsIgnoreCase("status")) {
+
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						"&6Usage: &7/"+command.getName()+" status <player>"
+				));
+
+			}
+
+		}
+		else if(args.length == 2) {
+
+			String[] cmdArgs = new String[args.length - 1];
+			cmdArgs = Arrays.asList(args).subList(1, args.length).toArray(cmdArgs);
+
+			// Status command for other players
+			if(args[0].equalsIgnoreCase("status")) {
+
+				// Get player
+				OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
+
+				// TODO: really do something!
 
 			}
 
@@ -85,73 +108,82 @@ public class LevelledCommandExecutor implements CommandExecutor {
 	private void cmdStatus(Player player, Command command, String label, String[] args) {
 
 		// Check permissions
-		if(player.hasPermission("levelled.level")) {
+		if(plugin.storage.playerExists(player)) {
 
-			// Update the hashmaps
-			plugin.flushCache(player);
+			if(player.hasPermission("levelled.level")) {
 
-			int bblocks, pblocks, minutes;
-			double points;
-			Level currentLevel, nextLevel;
+				// Update the hashmaps
+				plugin.flushCache(player);
 
-			DecimalFormat dfPoints = (DecimalFormat)DecimalFormat.getInstance(Locale.ENGLISH);
-			dfPoints.applyPattern("#0.00");
+				int bblocks, pblocks, minutes;
+				double points;
+				Level currentLevel, nextLevel;
 
-			bblocks = plugin.mBrokenBlocks.get(player);
-			pblocks = plugin.mPlacedBlocks.get(player);
-			minutes = plugin.mMinutesPlayed.get(player);
-			points = plugin.mActivityPoints.get(player);
+				DecimalFormat dfPoints = (DecimalFormat)DecimalFormat.getInstance(Locale.ENGLISH);
+				dfPoints.applyPattern("#0.00");
 
-			currentLevel = plugin.getPlayerLevel(player);
+				bblocks = plugin.mBrokenBlocks.get(player);
+				pblocks = plugin.mPlacedBlocks.get(player);
+				minutes = plugin.mMinutesPlayed.get(player);
+				points = plugin.mActivityPoints.get(player);
 
-			if(plugin.getLevels().size() <= currentLevel.getNumber())
-				nextLevel = currentLevel;
-			else
-				nextLevel = plugin.getLevels().get(currentLevel.getNumber() + 1);
+				currentLevel = plugin.getPlayerLevel(player);
 
+				if(currentLevel.getNumber() + 1 >= plugin.getLevels().size())
+					nextLevel = currentLevel;
+				else
+					nextLevel = plugin.getLevels().get(currentLevel.getNumber() + 1);
 
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					"&7-- &6Level Status &7--"
-			));
-
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					"  &7Current level: &6" + currentLevel.getName() + " &7(" + currentLevel.getNeededPoints() + " points)"
-			));
-
-			if(nextLevel.equals(currentLevel)) {
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						"  &7Next level: &6None. You've reached the maximum."
+						"&7-- &6Level Status of " + player.getName() + " &7--"
+				));
+
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						"  &7Current level: &6" + currentLevel.getName() + " &7(" + currentLevel.getNeededPoints() + " points)"
+				));
+
+				if(nextLevel.equals(currentLevel)) {
+
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"  &7Next level: &6None. You've reached the maximum."
+					));
+
+				}
+				else {
+
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"  &7Next level: &6" + nextLevel.getName() + " &7(" + nextLevel.getNeededPoints() + " points)"
+					));
+
+				}
+
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						"  &7Activity points: &6" + dfPoints.format(points)
+				));
+
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						"  &7Online time: &6" + (int) Math.floor(minutes / 60) + ":" + new DecimalFormat("00").format(minutes % 60)
+				));
+
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						"  &7Placed blocks: &6" + pblocks
+				));
+
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						"  &7Broken blocks: &6" + bblocks
 				));
 
 			}
 			else {
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						"  &7Next level: &6" + nextLevel.getName() + " &7(" + nextLevel.getNeededPoints() + " points)"
+						"&7This user is unknown to my level database."
 				));
 
 			}
 
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					"  &7Activity points: &6" + dfPoints.format(points)
-			));
-
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					"  &7Online time: &6" + (int) Math.floor(minutes / 60) + ":" + new DecimalFormat("00").format(minutes % 60)
-			));
-
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					"  &7Placed blocks: &6" + pblocks
-			));
-
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					"  &7Broken blocks: &6" + bblocks
-			));
-
 		}
-
-		// TODO: add configurable error message
 
 	}
 
