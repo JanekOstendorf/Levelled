@@ -107,6 +107,9 @@ public class Levelled extends JavaPlugin {
 		new BlockListener(this);
 		new PlayerListener(this);
 
+		// Command
+		this.getCommand("level").setExecutor(new LevelledCommandExecutor(this));
+
 		// Setup thread
 		int period = this.getConfig().getInt("updatePeriod");
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new LevelledThread(this), period * 20, period * 20);
@@ -163,7 +166,7 @@ public class Levelled extends JavaPlugin {
 			ConfigurationSection currentLevelConfig = allLevelsConfig.getConfigurationSection(levelKey);
 
 			allLevels.add(i, new Level(currentLevelConfig, levelKey, i));
-			this.levelNames[i] = currentLevelConfig.getString("name");
+			this.levelNames[i] = allLevels.get(i).getName();
 
 			i++;
 
@@ -226,6 +229,8 @@ public class Levelled extends JavaPlugin {
 
 		if(this.mMinutesPlayed.containsKey(player))
 			this.storage.setPlayerOnlineTime(player, this.mMinutesPlayed.get(player));
+
+		this.levelUp(player);
 
 	}
 
@@ -363,28 +368,37 @@ public class Levelled extends JavaPlugin {
 
 	protected void levelUp(Player player) {
 
-		Double currentPoints = this.mActivityPoints.get(player),
-				pointsNeeded = (double) 0;
-
 		Level levelToGain = this.getPlayerLevel(player);
+
+		// Do we support groups?
+
 
 		// Is that one higher than ours?
 		if(levelToGain.getNumber() <= this.storage.getPlayerLevel(player).getNumber())
 			return;
 
-		// Remove all old groups
-		for(String group : permission.getPlayerGroups(player)) {
+		try {
 
-			if(Arrays.asList(this.levelNames).contains(group)) {
+			// Remove all old groups
+			for(String group : permission.getPlayerGroups(player)) {
 
-				permission.playerRemoveGroup(player, group);
+				if(Arrays.asList(this.levelNames).contains(group)) {
+
+					permission.playerRemoveGroup(player, group);
+
+				}
 
 			}
 
-		}
+			// Level up
+			permission.playerAddGroup(player, levelToGain.getGroup());
 
-		// Level up
-		permission.playerAddGroup(player, levelToGain.getGroup());
+		}
+		catch(UnsupportedOperationException e) {
+
+			Levelled.logger.severe("Failed to set permissions for " + levelToGain.getName() + " (perm group " + levelToGain.getGroup() + ")");
+
+		}
 
 		// Write into the storage
 		this.storage.setPlayerLevel(player, levelToGain);
@@ -464,27 +478,21 @@ public class Levelled extends JavaPlugin {
 	 */
 	public Level getPlayerLevel(Player player) {
 
-		Level currentLevel = this.levels.get(0);
+		Level currentLevel;
 
 		// Begin at the end and get the last level greater than the current
 		int i = this.levels.size() - 1;
 
-		while(i >= 0) {
-
-			if(this.levels.get(i).getNeededPoints() >= this.mActivityPoints.get(player)) {
-
-				currentLevel = this.levels.get(i);
-
-			}
-			else
-				break;
+		while(i > 0 && this.mActivityPoints.get(player) >= this.levels.get(i).getNeededPoints()) {
 
 			i--;
 
 		}
 
-		if(currentLevel.getNeededPoints() > this.mActivityPoints.get(player))
-			return this.levels.get((i - 1 < 0 ? 0 : i - 1));
+		currentLevel = this.levels.get(i + 1);
+
+		//if(currentLevel.getNeededPoints() > this.mActivityPoints.get(player))
+		//	return this.levels.get((i - 1 < 0 ? 0 : i - 1));
 
 		return currentLevel;
 

@@ -35,7 +35,8 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent evt) {
 
-		plugin.flushCache(evt.getPlayer());
+		plugin.fetchPlayerData(evt.getPlayer());
+		plugin.startMeasure(evt.getPlayer());
 
 	}
 

@@ -8,3 +8,21 @@ main: me.ozzyfant.levelled.Levelled
 database: false
 depend:
     - Vault
+
+commands:
+    level:
+        description: Levelled main command
+        aliases:
+            - levelled
+            - lvl
+        permission: levelled.level
+        usage: /<command>
+
+permissions:
+    levelled.*:
+        description: Gives access to all Levelled commands.
+        children:
+            levelled.level: true
+    levelled.level:
+        description: Allows you to level up and view your status.
+        default: true
