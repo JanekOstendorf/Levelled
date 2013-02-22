@@ -6,9 +6,9 @@ points:
 
 levels:
 
-  - name: Level 1
-    points: 0
-    group: lvl1
-  - name: Level 2
-    points: 10
-    group: lvl2
+    lvl1:
+        name: Level 1
+        points: 0
+    lvl2:
+        name: Level 2
+        points: 20

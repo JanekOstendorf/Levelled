@@ -28,22 +28,32 @@ public class Level {
 	protected double neededPoints;
 
 	/**
+	 * Permissions group
+	 */
+	protected String group;
+
+	/**
 	 * Init the level
 	 *
 	 * @param configurationSection Configuration section for this level
 	 * @param number               Number of this level in the order of levels
 	 */
-	public Level(ConfigurationSection configurationSection, int number) {
+	public Level(ConfigurationSection configurationSection, String group, int number) {
 
 		this.name = configurationSection.getString("name");
 		this.neededPoints = configurationSection.getDouble("points");
 
 		this.number = number;
+		this.group = group;
 
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public String getGroup() {
+		return group;
 	}
 
 	public int getNumber() {
