@@ -9,6 +9,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,7 +79,7 @@ public class Levelled extends JavaPlugin {
 		this.levels = this.fetchLevels();
 
 		// Initialize the storage
-		this.storage = new Storage(new File(this.getDataFolder().getAbsolutePath() + File.);
+		this.storage = new Storage(new File(this.getDataFolder().getAbsolutePath() + File.separator + "Levelled" + File.separator + "storage.yml"));
 
 	}
 
