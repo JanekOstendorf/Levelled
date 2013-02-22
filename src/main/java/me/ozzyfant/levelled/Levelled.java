@@ -7,6 +7,7 @@ package me.ozzyfant.levelled;
 
 import me.ozzyfant.levelled.listeners.BlockListener;
 import me.ozzyfant.levelled.listeners.PlayerListener;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -88,7 +89,7 @@ public class Levelled extends JavaPlugin {
 		this.levels = this.fetchLevels();
 
 		// Initialize the storage
-		this.storage = new Storage(new File(this.getDataFolder().getAbsolutePath() + File.separator + "Levelled" + File.separator + "storage.yml"));
+		this.storage = new Storage(this, new File(this.getDataFolder().getAbsolutePath() + File.separator + "storage.yml"));
 
 		// Event listeners
 		new BlockListener(this);
@@ -124,7 +125,7 @@ public class Levelled extends JavaPlugin {
 
 			ConfigurationSection currentLevelConfig = allLevelsConfig.getConfigurationSection(levelKey);
 
-			allLevels.add(new Level(currentLevelConfig, levelKey, i++));
+			allLevels.add(i, new Level(currentLevelConfig, levelKey, i++));
 
 		}
 
@@ -155,6 +156,7 @@ public class Levelled extends JavaPlugin {
 			this.storage.setPlayerPlacedBlocks(player, 0);
 			this.storage.setPlayerBrokenBlocks(player, 0);
 			this.storage.setPlayerOnlineTime(player, 0);
+			this.storage.setPlayerLevel(player, this.levels.get(0));
 
 			this.mActivityPoints.put(player, (double) 0);
 			this.mPlacedBlocks.put(player, 0);
@@ -294,6 +296,8 @@ public class Levelled extends JavaPlugin {
 		// Save points
 		this.mActivityPoints.put(player, this.mActivityPoints.get(player) + pointsToAdd);
 
+		this.levelUp(player);
+
 	}
 
 	protected void levelUp(Player player) {
@@ -301,17 +305,37 @@ public class Levelled extends JavaPlugin {
 		Double currentPoints = this.mActivityPoints.get(player),
 				pointsNeeded = (double) 0;
 
-		Level levelToGain;
+		Level levelToGain = this.getPlayerLevel(player);
 
-		for(Level level : this.levels) {
+		// Is that one higher than ours?
+		if(levelToGain.getNumber() <= this.storage.getPlayerLevel(player).getNumber())
+			return;
 
-			if(level.getNeededPoints() >= currentPoints) {
+		// TODO: Set the new group
 
-				levelToGain = level;
+		// Write into the storage
+		this.storage.setPlayerLevel(player, levelToGain);
 
-			}
-			else
-				break;
+		// Do the broadcasting
+		if(this.getConfig().getBoolean("messages.global-notify")) {
+
+			this.getServer().broadcastMessage(
+					ChatColor.translateAlternateColorCodes('&',
+							this.getConfig().getString("messages.global-message")
+									.replaceAll("%player%", player.getDisplayName())
+									.replaceAll("%level%", levelToGain.getName())
+					)
+			);
+
+		}
+		else {
+
+			player.sendMessage(
+					ChatColor.translateAlternateColorCodes('&',
+							this.getConfig().getString("messages.message")
+									.replaceAll("%level%", levelToGain.getName())
+					)
+			);
 
 		}
 
@@ -351,12 +375,45 @@ public class Levelled extends JavaPlugin {
 		}
 
 		// Calc the minutes to add
-		minutesToAdd = (int) Math.round((currentTime - startTime) / 60);
+		minutesToAdd = Math.round((currentTime - startTime) / 60);
 
 		this.addPoints(player, pointType.TIME, minutesToAdd);
 
 		// Clear cache
 		this.mLoginTime.remove(player);
+
+	}
+
+	/**
+	 * Get theoretic level
+	 * @param player Player
+	 * @return Level the player should have
+	 */
+	public Level getPlayerLevel(Player player) {
+
+		Level currentLevel = this.levels.get(0);
+
+		// Begin at the end and get the last level greater than the current
+		int i = this.levels.size() - 1;
+
+		while(i >= 0) {
+
+			if(this.levels.get(i).getNeededPoints() >= this.mActivityPoints.get(player)) {
+
+				currentLevel = this.levels.get(i);
+
+			}
+			else
+				break;
+
+			i--;
+
+		}
+
+		if(currentLevel.getNeededPoints() > this.mActivityPoints.get(player))
+			return this.levels.get((i - 1 < 0 ? 0 : i - 1));
+
+		return currentLevel;
 
 	}
 

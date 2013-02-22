@@ -4,6 +4,13 @@ points:
     placed-block: 0.125
     broken-block: 0.0625
 
+messages:
+
+    global-notify: true
+
+    global-message: "%player% hast just reached %level%."
+    message: "You've just reached %level%!"
+
 levels:
 
     lvl1:

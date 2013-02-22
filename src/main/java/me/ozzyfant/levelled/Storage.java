@@ -27,11 +27,17 @@ public class Storage {
 	protected File file;
 
 	/**
+	 * Plugin reference
+	 */
+	protected Levelled plugin;
+
+	/**
 	 * Initialize the config
 	 * @param storageFile Configuration file
 	 */
-	public Storage(File storageFile) {
+	public Storage(Levelled plugin, File storageFile) {
 
+		this.plugin = plugin;
 		this.file = storageFile;
 
 		this.configuration = YamlConfiguration.loadConfiguration(this.file);
@@ -113,6 +119,25 @@ public class Storage {
 	}
 
 	/**
+	 * Get a players actual level
+	 * @param player Player
+	 * @return Actual level
+	 */
+	public Level getPlayerLevel(Player player) {
+
+		if(this.configuration.contains("storage." + player.getName() + ".levelNumber")) {
+
+			int levelNumber = this.configuration.getInt("storage." + player.getName() + ".levelNumber");
+
+			return plugin.getLevels().get(levelNumber);
+
+		}
+
+		return plugin.getLevels().get(0);
+
+	}
+
+	/**
 	 * Set a player's activity points
 	 * @param player Player
 	 * @param points Points
@@ -159,6 +184,14 @@ public class Storage {
 	public void setPlayerOnlineTime(Player player, int minutes) {
 
 		this.configuration.set("storage." + player.getName() + ".onlineTime", minutes);
+
+		this.save();
+
+	}
+
+	public void setPlayerLevel(Player player, Level level) {
+
+		this.configuration.set("storage."+ player.getName() + ".levelNumber", level.getNumber());
 
 		this.save();
 
