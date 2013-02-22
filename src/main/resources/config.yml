@@ -1,6 +1,14 @@
+points:
+
+    time: 100
+    placed-block: 0.125
+    broken-block: 0.0625
+
 levels:
 
   - name: Level 1
     points: 0
+    group: lvl1
   - name: Level 2
     points: 10
+    group: lvl2

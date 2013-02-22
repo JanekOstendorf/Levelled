@@ -15,15 +15,7 @@
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>perm-repo</id>
-            <url>http://repo.tehkode.ru/repository/bukkit-plugins/</url>
-        </repository>
-        <repository>
-            <id>spout</id>
-            <url>http://repo.spout.org</url>
-        </repository>
     </repositories>
 
-    
+
 </project>
