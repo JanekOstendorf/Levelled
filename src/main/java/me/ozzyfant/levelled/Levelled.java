@@ -7,9 +7,11 @@ package me.ozzyfant.levelled;
 
 import me.ozzyfant.levelled.listeners.BlockListener;
 import me.ozzyfant.levelled.listeners.PlayerListener;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -26,9 +28,19 @@ public class Levelled extends JavaPlugin {
 	public static final Logger logger = new Logger();
 
 	/**
+	 * Vault permissions
+	 */
+	public static Permission permission = null;
+
+	/**
 	 * Levels
 	 */
 	protected List<Level> levels;
+
+	/**
+	 * Level names
+	 */
+	protected String[] levelNames;
 
 	/**
 	 * Storage
@@ -99,6 +111,10 @@ public class Levelled extends JavaPlugin {
 		int period = this.getConfig().getInt("updatePeriod");
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new LevelledThread(this), period * 20, period * 20);
 
+		// Setup vault permissions
+		if(!this.setupPermissions())
+			Levelled.logger.severe("Failed to initialize Vault permissions!");
+
 	}
 
 	/**
@@ -113,6 +129,19 @@ public class Levelled extends JavaPlugin {
 	}
 
 	/**
+	 * Setup Vault permissions
+	 * @return Success
+	 */
+	private boolean setupPermissions()
+	{
+		RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+		if (permissionProvider != null) {
+			permission = permissionProvider.getProvider();
+		}
+		return (permission != null);
+	}
+
+	/**
 	 * Fetch all levels from the config
 	 * @return Array of all Levels
 	 */
@@ -120,6 +149,9 @@ public class Levelled extends JavaPlugin {
 
 		// The level config node
 		ConfigurationSection allLevelsConfig = this.getConfig().getConfigurationSection("levels");
+
+		// Level names
+		this.levelNames = new String[allLevelsConfig.getKeys(false).size()];
 
 		// Buffer
 		List<Level> allLevels = new ArrayList<Level>();
@@ -130,7 +162,10 @@ public class Levelled extends JavaPlugin {
 
 			ConfigurationSection currentLevelConfig = allLevelsConfig.getConfigurationSection(levelKey);
 
-			allLevels.add(i, new Level(currentLevelConfig, levelKey, i++));
+			allLevels.add(i, new Level(currentLevelConfig, levelKey, i));
+			this.levelNames[i] = currentLevelConfig.getString("name");
+
+			i++;
 
 		}
 
@@ -337,7 +372,19 @@ public class Levelled extends JavaPlugin {
 		if(levelToGain.getNumber() <= this.storage.getPlayerLevel(player).getNumber())
 			return;
 
-		// TODO: Set the new group
+		// Remove all old groups
+		for(String group : permission.getPlayerGroups(player)) {
+
+			if(Arrays.asList(this.levelNames).contains(group)) {
+
+				permission.playerRemoveGroup(player, group);
+
+			}
+
+		}
+
+		// Level up
+		permission.playerAddGroup(player, levelToGain.getGroup());
 
 		// Write into the storage
 		this.storage.setPlayerLevel(player, levelToGain);

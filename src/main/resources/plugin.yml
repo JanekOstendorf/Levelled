@@ -6,5 +6,5 @@ author: ozzy2345
 
 main: me.ozzyfant.levelled.Levelled
 database: false
-#depend:
-#    - Vault
+depend:
+    - Vault
