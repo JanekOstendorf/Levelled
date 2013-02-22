@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Listener for block events
  */
 public class BlockListener implements Listener {
 

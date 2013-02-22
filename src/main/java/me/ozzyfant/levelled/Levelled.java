@@ -6,6 +6,7 @@
 package me.ozzyfant.levelled;
 
 import me.ozzyfant.levelled.listeners.BlockListener;
+import me.ozzyfant.levelled.listeners.PlayerListener;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -91,6 +92,7 @@ public class Levelled extends JavaPlugin {
 
 		// Event listeners
 		new BlockListener(this);
+		new PlayerListener(this);
 
 	}
 
