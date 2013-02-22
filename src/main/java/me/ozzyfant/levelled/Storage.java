@@ -121,6 +121,8 @@ public class Storage {
 
 		this.configuration.set("storage." + player.getName() + ".activityPoints", points);
 
+		this.save();
+
 	}
 
 	/**
@@ -131,6 +133,8 @@ public class Storage {
 	public void setPlayerPlacedBlocks(Player player, int blocks) {
 
 		this.configuration.set("storage." + player.getName() + ".placedBlocks", blocks);
+
+		this.save();
 
 	}
 
@@ -143,6 +147,8 @@ public class Storage {
 
 		this.configuration.set("storage." + player.getName() + ".brokenBlocks", blocks);
 
+		this.save();
+
 	}
 
 	/**
@@ -150,9 +156,11 @@ public class Storage {
 	 * @param player Player
 	 * @param minutes Points
 	 */
-	public void setPlayerOnlinTime(Player player, int minutes) {
+	public void setPlayerOnlineTime(Player player, int minutes) {
 
 		this.configuration.set("storage." + player.getName() + ".onlineTime", minutes);
+
+		this.save();
 
 	}
 

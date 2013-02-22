@@ -154,7 +154,7 @@ public class Levelled extends JavaPlugin {
 			this.storage.setPlayerActivityPoints(player, 0);
 			this.storage.setPlayerPlacedBlocks(player, 0);
 			this.storage.setPlayerBrokenBlocks(player, 0);
-			this.storage.setPlayerOnlinTime(player, 0);
+			this.storage.setPlayerOnlineTime(player, 0);
 
 			this.mActivityPoints.put(player, (double) 0);
 			this.mPlacedBlocks.put(player, 0);
@@ -183,7 +183,7 @@ public class Levelled extends JavaPlugin {
 			this.storage.setPlayerBrokenBlocks(player, this.mBrokenBlocks.get(player));
 
 		if(this.mMinutesPlayed.containsKey(player))
-			this.storage.setPlayerOnlinTime(player, this.mMinutesPlayed.get(player));
+			this.storage.setPlayerOnlineTime(player, this.mMinutesPlayed.get(player));
 
 	}
 
