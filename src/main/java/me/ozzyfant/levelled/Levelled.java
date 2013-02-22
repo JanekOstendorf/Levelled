@@ -95,6 +95,10 @@ public class Levelled extends JavaPlugin {
 		new BlockListener(this);
 		new PlayerListener(this);
 
+		// Setup thread
+		int period = this.getConfig().getInt("updatePeriod");
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new LevelledThread(this), period * 20, period * 20);
+
 	}
 
 	/**
@@ -103,6 +107,7 @@ public class Levelled extends JavaPlugin {
 	@Override
 	public void onDisable() {
 
+		this.updateAll(false);
 		Levelled.logger.info("Plugin disabled.");
 
 	}
@@ -229,6 +234,27 @@ public class Levelled extends JavaPlugin {
 
 		// Restart the measurement
 		this.startMeasure(player);
+
+	}
+
+	/**
+	 * Write everything to the storage
+	 * @param startAgain Start the measurement again?
+	 */
+	public void updateAll(boolean startAgain) {
+
+		Player[] onlinePlayers = this.getServer().getOnlinePlayers();
+
+		for(Player player : onlinePlayers) {
+
+			this.stopMeasure(player);
+
+			if(startAgain)
+				this.startMeasure(player);
+
+			this.savePlayerData(player);
+
+		}
 
 	}
 

@@ -30,7 +30,7 @@ public class Logger {
 	 */
 	public void info(String message) {
 
-		this.log.log(Level.INFO, "[Levelled]" + message);
+		this.log.log(Level.INFO, "[Levelled] " + message);
 
 	}
 
