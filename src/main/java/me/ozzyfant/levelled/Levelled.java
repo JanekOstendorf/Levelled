@@ -5,6 +5,7 @@
  */
 package me.ozzyfant.levelled;
 
+import me.ozzyfant.levelled.listeners.BlockListener;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -87,6 +88,9 @@ public class Levelled extends JavaPlugin {
 
 		// Initialize the storage
 		this.storage = new Storage(new File(this.getDataFolder().getAbsolutePath() + File.separator + "Levelled" + File.separator + "storage.yml"));
+
+		// Event listeners
+		new BlockListener(this);
 
 	}
 
