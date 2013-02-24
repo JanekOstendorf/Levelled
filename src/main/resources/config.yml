@@ -1,20 +1,50 @@
+# How often should the plugin update the storage file and check if somebody levelled up?
 updatePeriod: 120
+
+# Should we ignore player with gamemode 1?
 ignoreCreative: false
+
+# Point numbers
 points:
-  time: 100
-  placed-block: 0.125
-  broken-block: 0.0625
+
+    # How many points do we get for an hour online time?
+    time: 100
+    # How many points do we get for one placed block?
+    placed-block: 0.125
+    # How many points do we get for one destroyed block?
+    broken-block: 0.0625
+
+# Messages
 messages:
-  global-notify: true
-  global-message: '%player% hast just reached %level%.'
-  message: You've just reached %level%!
+
+    # Shall we tell the whole server that somebody levels up?
+    global-notify: true
+
+    # Message to broadcast, when messages.global-notify is true
+    # Variables: %player% (player name of the guy levelling up), %level% (name of the reached level)
+    global-message: "%player% has just reached %level%."
+    # Message to send to just the player
+    # Variables: %level% (name of the reached level)
+    message: "You've just reached %level%!"
+
+# Levels
 levels:
-  lvl1:
-    name: Level 1
-    points: 0
-  lvl2:
-    name: Level 2
-    points: 20
+
+    # This must be the name of your permissions group
+    lvl1:
+        # How should this level be called in the messages?
+        name: Level 1
+        # How many points does one need to reach this level?
+        points: 0
+    lvl2:
+        name: Level 2
+        points: 20
+
+# Per world settings
 worlds:
-  creative:
-    ignore: true
+
+    # World's name here
+    creative:
+
+        # Ignore this world for levelling
+        ignore: true
