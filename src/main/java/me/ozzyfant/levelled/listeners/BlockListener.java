@@ -5,8 +5,10 @@
  */
 package me.ozzyfant.levelled.listeners;
 
+import me.ozzyfant.levelled.Level;
 import me.ozzyfant.levelled.Levelled;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -14,6 +16,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.World;
 
 /**
  * Listener for block events
@@ -24,13 +27,26 @@ public class BlockListener implements Listener {
 	 * Plugin reference
 	 */
 	protected Levelled plugin;
+    protected List<String> ignoredWorlds = new ArrayList<String>();
 
-	public BlockListener(Levelled plugin) {
+    public BlockListener(Levelled plugin) {
 
 		this.plugin = plugin;
 
 		// Register events
 		this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+
+
+        // The world config node
+        ConfigurationSection allWorldsConfig = plugin.getConfig().getConfigurationSection("worlds");
+
+        for(String worldKey : allWorldsConfig.getKeys(false)) {
+
+            ConfigurationSection currentLevelConfig = allWorldsConfig.getConfigurationSection(worldKey);
+            if(currentLevelConfig.getBoolean("ignore")){
+                this.ignoredWorlds.add(worldKey);
+            }
+        }
 
 	}
 
@@ -49,9 +65,12 @@ public class BlockListener implements Listener {
 		blacklist.add(Material.GOLD_HOE);
 		blacklist.add(Material.DIAMOND_HOE);
 
-		// Do we have a blacklisted item here?
-		if(!blacklist.contains(evt.getItemInHand().getType())) {
 
+
+
+
+		// Do we have a blacklisted item or world here?
+		if(!blacklist.contains(evt.getItemInHand().getType()) && !this.ignoredWorlds.contains(evt.getPlayer().getWorld().getName()) && (!evt.getPlayer().getGameMode().name().equalsIgnoreCase("creative")) && plugin.getConfig().getBoolean("ignoreCreative")) {
 			this.plugin.addPoints(evt.getPlayer(), Levelled.pointType.PLACED_BLOCKS);
 
 		}
@@ -60,9 +79,9 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent evt) {
-
-		this.plugin.addPoints(evt.getPlayer(), Levelled.pointType.BROKEN_BLOCKS);
-
+        if(!this.ignoredWorlds.contains((evt.getPlayer().getWorld().getName())) && (!evt.getPlayer().getGameMode().name().equalsIgnoreCase("creative")) && plugin.getConfig().getBoolean("ignoreCreative")){
+		    this.plugin.addPoints(evt.getPlayer(), Levelled.pointType.BROKEN_BLOCKS);
+        }
 	}
 
 }

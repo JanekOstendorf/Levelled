@@ -1,23 +1,20 @@
 updatePeriod: 120
-
+ignoreCreative: false
 points:
-
-    time: 100
-    placed-block: 0.125
-    broken-block: 0.0625
-
+  time: 100
+  placed-block: 0.125
+  broken-block: 0.0625
 messages:
-
-    global-notify: true
-
-    global-message: "%player% hast just reached %level%."
-    message: "You've just reached %level%!"
-
+  global-notify: true
+  global-message: '%player% hast just reached %level%.'
+  message: You've just reached %level%!
 levels:
-
-    lvl1:
-        name: Level 1
-        points: 0
-    lvl2:
-        name: Level 2
-        points: 20
+  lvl1:
+    name: Level 1
+    points: 0
+  lvl2:
+    name: Level 2
+    points: 20
+worlds:
+  creative:
+    ignore: true
