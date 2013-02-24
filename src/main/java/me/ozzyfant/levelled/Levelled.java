@@ -491,9 +491,6 @@ public class Levelled extends JavaPlugin {
 
 		currentLevel = this.levels.get(i + 1);
 
-		//if(currentLevel.getNeededPoints() > this.mActivityPoints.get(player))
-		//	return this.levels.get((i - 1 < 0 ? 0 : i - 1));
-
 		return currentLevel;
 
 	}
