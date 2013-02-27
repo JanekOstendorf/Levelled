@@ -13,8 +13,10 @@ points:
     placed-block: 0.125
     # How many points do we get for one destroyed block?
     broken-block: 0.0625
-    # How many points do we get for one killed mob?
-    killed-mob: 0.1
+    # How many points do we get for one killed monster?
+    killed-monster: 2
+    # How many points do we got for one killed animal?
+    killed-animal: 0.1
 
 # Messages
 messages:

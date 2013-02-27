@@ -83,7 +83,8 @@ public class Levelled extends JavaPlugin {
 		PLACED_BLOCKS,
 		BROKEN_BLOCKS,
 		TIME,
-        KILLED_MOBS
+		KILLED_ANIMAL,
+		KILLED_MONSTER
 
 	}
 
@@ -351,28 +352,33 @@ public class Levelled extends JavaPlugin {
 
 				break;
 
-            case BROKEN_BLOCKS:
+			case BROKEN_BLOCKS:
 
-                // Calculate the number of points to add
-                pointsToAdd = (double) count * this.getConfig().getDouble("points.broken-block");
+				// Calculate the number of points to add
+				pointsToAdd = (double) count * this.getConfig().getDouble("points.broken-block");
 
-                // Save to the cache
-                this.mBrokenBlocks.put(player, this.mBrokenBlocks.get(player) + count);
+				// Save to the cache
+				this.mBrokenBlocks.put(player, this.mBrokenBlocks.get(player) + count);
 
-                break;
+				break;
 
-            case KILLED_MOBS:
+			case KILLED_MONSTER:
 
-                // Calculate the number of points to add
-                pointsToAdd = (double) count * this.getConfig().getDouble("points.killed-mobs");
+				// Calculate the number of points to add
+				pointsToAdd = (double) count * this.getConfig().getDouble("points.killed-monster");
 
-                // Save to the cache
-                this.mBrokenBlocks.put(player, this.mBrokenBlocks.get(player) + count);
+				break;
 
-                break;
+			case KILLED_ANIMAL:
+
+				// Calculate the number of points to add
+				pointsToAdd = (double) count * this.getConfig().getDouble("points.killed-animal");
+
+				break;
 
 
-        }
+
+		}
 
 		// Save points
 		this.mActivityPoints.put(player, this.mActivityPoints.get(player) + pointsToAdd);
