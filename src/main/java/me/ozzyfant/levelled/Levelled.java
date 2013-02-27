@@ -26,7 +26,7 @@ public class Levelled extends JavaPlugin {
 	/**
 	 * Logging logger
 	 */
-	public static final Logger logger = new Logger();
+	public static Logger logger = null;
 
 	/**
 	 * Vault permissions
@@ -95,7 +95,8 @@ public class Levelled extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
-		Levelled.logger.info("Plugin enabled.");
+		// Logger
+		Levelled.logger = new Logger();
 
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
@@ -122,6 +123,17 @@ public class Levelled extends JavaPlugin {
 		if(!this.setupPermissions())
 			Levelled.logger.severe("Failed to initialize Vault permissions!");
 
+		// If we have a reload, init every player
+
+		for(Player player : this.getServer().getOnlinePlayers()) {
+
+			this.fetchPlayerData(player);
+			this.startMeasure(player);
+
+		}
+
+		Levelled.logger.info("Plugin enabled.");
+
 	}
 
 	/**
@@ -130,6 +142,7 @@ public class Levelled extends JavaPlugin {
 	@Override
 	public void onDisable() {
 
+		// If we have a reload, save every player
 		this.updateAll(false);
 		Levelled.logger.info("Plugin disabled.");
 
@@ -292,11 +305,15 @@ public class Levelled extends JavaPlugin {
 		for(Player player : onlinePlayers) {
 
 			this.stopMeasure(player);
+			this.savePlayerData(player);
+			this.clearCache(player);
 
-			if(startAgain)
+			if(startAgain) {
+
+				this.fetchPlayerData(player);
 				this.startMeasure(player);
 
-			this.savePlayerData(player);
+			}
 
 		}
 
@@ -506,13 +523,13 @@ public class Levelled extends JavaPlugin {
 		// Begin at the end and get the last level greater than the current
 		int i = this.levels.size() - 1;
 
-		while(i >= 0 && this.mActivityPoints.get(player) >= this.levels.get(i).getNeededPoints()) {
+		while(i >= 0 &&	this.mActivityPoints.get(player) < this.levels.get(i).getNeededPoints()) {
 
 			i--;
 
 		}
 
-		currentLevel = this.levels.get(i + 1);
+		currentLevel = this.levels.get(i);
 
 		return currentLevel;
 

@@ -1,5 +1,5 @@
 name: Levelled
-version: 0.2-SNAPSHOT
+version: 0.2
 description: Simple level plugin using online time, placed blocks and/or destroyed blocks (or any combinations) for levelling up.
 
 author: ozzy2345

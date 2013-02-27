@@ -5,8 +5,8 @@
  */
 package me.ozzyfant.levelled.listeners;
 
-import me.ozzyfant.levelled.Level;
 import me.ozzyfant.levelled.Levelled;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
@@ -16,7 +16,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.World;
 
 /**
  * Listener for block events
@@ -70,7 +69,8 @@ public class BlockListener implements Listener {
 
 
 		// Do we have a blacklisted item or world here?
-		if(!blacklist.contains(evt.getItemInHand().getType()) && !this.ignoredWorlds.contains(evt.getPlayer().getWorld().getName()) && (!evt.getPlayer().getGameMode().name().equalsIgnoreCase("creative")) && plugin.getConfig().getBoolean("ignoreCreative")) {
+		if(!blacklist.contains(evt.getItemInHand().getType()) && !this.ignoredWorlds.contains(evt.getPlayer().getWorld().getName()) && !(this.plugin.getConfig().getBoolean("ignoreCreative") && evt.getPlayer().getGameMode().getValue() == GameMode.CREATIVE.getValue())) {
+
 			this.plugin.addPoints(evt.getPlayer(), Levelled.pointType.PLACED_BLOCKS);
 
 		}
@@ -79,9 +79,13 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent evt) {
-        if(!this.ignoredWorlds.contains((evt.getPlayer().getWorld().getName())) && (!evt.getPlayer().getGameMode().name().equalsIgnoreCase("creative")) && plugin.getConfig().getBoolean("ignoreCreative")){
+
+        if(!this.ignoredWorlds.contains(evt.getPlayer().getWorld().getName()) && !(this.plugin.getConfig().getBoolean("ignoreCreative") && evt.getPlayer().getGameMode().getValue() == GameMode.CREATIVE.getValue())) {
+
 		    this.plugin.addPoints(evt.getPlayer(), Levelled.pointType.BROKEN_BLOCKS);
+
         }
+
 	}
 
 }

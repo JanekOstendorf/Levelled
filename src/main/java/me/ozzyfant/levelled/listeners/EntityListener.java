@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 /**
- *
+ * Entity Listener
  */
 public class EntityListener implements Listener {
 
@@ -25,6 +25,9 @@ public class EntityListener implements Listener {
 
 		this.plugin = plugin;
 
+		// Register events
+		this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+
 	}
 
 	@EventHandler
@@ -35,16 +38,21 @@ public class EntityListener implements Listener {
 
 			if(e.getEntity() instanceof Animals) {
 
-				this.plugin.addPoints(e.getEntity().getKiller(), Levelled.pointType.KILLED_ANIMAL);
+				// Did this guy really kill the monster?
+				//if(e.getEntity().getLastDamageCause().getEntity().equals(e.getEntity().getKiller()))
+					this.plugin.addPoints(e.getEntity().getKiller(), Levelled.pointType.KILLED_ANIMAL);
 
 			}
 			else if(e.getEntity() instanceof Monster) {
 
-				this.plugin.addPoints(e.getEntity().getKiller(), Levelled.pointType.KILLED_MONSTER);
+				// Did this guy really kill the monster?
+				//if(e.getEntity().get)
+					this.plugin.addPoints(e.getEntity().getKiller(), Levelled.pointType.KILLED_MONSTER);
 
 			}
 
 		}
+
 	}
 
 }
