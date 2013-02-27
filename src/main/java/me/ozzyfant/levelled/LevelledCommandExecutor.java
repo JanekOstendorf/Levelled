@@ -6,6 +6,7 @@
 package me.ozzyfant.levelled;
 
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -45,7 +46,6 @@ public class LevelledCommandExecutor implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "You must be a player!");
             console = true;
 		}
-
         else{
 		 player = (Player) sender;
         }
