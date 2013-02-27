@@ -33,7 +33,9 @@
             <version>1.4.7-R1.0</version>
         </dependency>
     </dependencies>
-
+    <properties>
+        <project.build.sourceEncoding>${file.encoding}</project.build.sourceEncoding>
+    </properties>
     <build>
         <plugins>
             <plugin>
