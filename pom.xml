@@ -6,7 +6,7 @@
 
     <groupId>me.ozzyfant.levelled</groupId>
     <artifactId>Levelled</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <name>Levelled</name>
 
     <packaging>jar</packaging>
