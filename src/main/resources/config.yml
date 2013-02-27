@@ -4,6 +4,7 @@ points:
   time: 100
   placed-block: 0.125
   broken-block: 0.0625
+  killed-mob: 0.1
 messages:
   global-notify: true
   global-message: '%player% hast just reached %level%.'
