@@ -322,6 +322,10 @@ public class Levelled extends JavaPlugin {
 	 */
 	public void addPoints(Player player, pointType type, int count) {
 
+		// Check the players permission
+		if(!player.hasPermission("levelled.level"))
+			return;
+
 		double pointsToAdd = 0;
 
 		switch(type) {
@@ -501,9 +505,6 @@ public class Levelled extends JavaPlugin {
 		}
 
 		currentLevel = this.levels.get(i + 1);
-
-		//if(currentLevel.getNeededPoints() > this.mActivityPoints.get(player))
-		//	return this.levels.get((i - 1 < 0 ? 0 : i - 1));
 
 		return currentLevel;
 
