@@ -6,6 +6,7 @@
 package me.ozzyfant.levelled;
 
 import me.ozzyfant.levelled.listeners.BlockListener;
+import me.ozzyfant.levelled.listeners.EntityListener;
 import me.ozzyfant.levelled.listeners.PlayerListener;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.ChatColor;
@@ -108,6 +109,7 @@ public class Levelled extends JavaPlugin {
 		// Event listeners
 		new BlockListener(this);
 		new PlayerListener(this);
+		new EntityListener(this);
 
 		// Command
 		this.getCommand("level").setExecutor(new LevelledCommandExecutor(this));
