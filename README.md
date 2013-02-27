@@ -6,8 +6,8 @@ Simple to use but advanced levelling plugin.
 
 ----
 
-* [Permissions](Levelled/wiki/Permissions)
-* [Configuration](Levelled/blob/master/src/main/resources/config.yml)
+* [Permissions](https://github.com/ozzyfant/Levelled/wiki/Permissions)
+* [Configuration](https://github.com/ozzyfant/Levelled/blob/master/src/main/resources/config.yml)
 
 ----
 
