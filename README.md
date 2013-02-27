@@ -5,8 +5,10 @@ Simple to use but advanced levelling plugin.
 [![Build Status](http://chaos.skyirc.net:8080/job/Levelled/badge/icon)](http://chaos.skyirc.net:8080/job/Levelled/)
 
 ----
+
 * [Permissions](Levelled/wiki/Permissions)
 * [Configuration](Levelled/blob/master/src/main/resources/config.yml)
+
 ----
 
 ### Features
