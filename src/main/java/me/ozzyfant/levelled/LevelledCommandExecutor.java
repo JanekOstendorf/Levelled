@@ -93,8 +93,10 @@ public class LevelledCommandExecutor implements CommandExecutor {
 			if(args[0].equalsIgnoreCase("status")) {
 
 				// Get player
-				//OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
-
+				OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+						"&7-- &6Level Status of " + cmdPlayer.getName() + " &7--"
+				));
 				// TODO: really do something!
 
 			}
