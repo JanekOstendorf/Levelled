@@ -20,8 +20,8 @@ These events can be configured to bring activity points.
 * Being online (online time)
 * Placing blocks
 * Breaking blocks
-* Killing animals (todo)
-* Killing monsters (todo)
+* Killing animals (added, needs more testing)
+* Killing monsters (added, needs more testing)
 * Placing/Breaking specific blocks (todo)
 
 Suggestions are welcome!
