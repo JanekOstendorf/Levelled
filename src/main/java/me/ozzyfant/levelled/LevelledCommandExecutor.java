@@ -6,7 +6,6 @@
 package me.ozzyfant.levelled;
 
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -98,6 +97,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 						"&7-- &6Level Status of " + cmdPlayer.getName() + " &7--"
 				));
 				// TODO: really do something!
+				// TODO: check for permission levelled.status.others
 
 			}
 
@@ -112,7 +112,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 		// Check permissions
 		if(plugin.storage.playerExists(player)) {
 
-			if(player.hasPermission("levelled.level")) {
+			if(player.hasPermission("levelled.status")) {
 
 				// Update the hashmaps
 				plugin.flushCache(player);
@@ -201,7 +201,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 		));
 
 		// Level status
-		if(player.hasPermission("levelled.level")) {
+		if(player.hasPermission("levelled.status")) {
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
 					"  &6/" + command.getName()
 			));

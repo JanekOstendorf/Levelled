@@ -23,6 +23,14 @@ permissions:
         description: Gives access to all Levelled commands.
         children:
             levelled.level: true
+            levelled.status: true
+            levelled.status.others: true
     levelled.level:
-        description: Allows you to level up and view your status.
+        description: Allows you to level up.
+        default: true
+    levelled.status:
+        description: Allows you to see your status.
+        default: true
+    levelled.status.others:
+        description: Allows you to see the status of other players.
         default: true
