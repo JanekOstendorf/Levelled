@@ -36,20 +36,20 @@ public class LevelledCommandExecutor implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		// Is this a player?
+
+        // Is this a player or the console?
+        boolean console = false;
+        Player player = null;
+
+        // Is this a player?
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED + "You must be a player!");
-			return true;
+            console = true;
 		}
 
-		Player player = (Player) sender;
-
-		// Is this a player or the console?
-		boolean console = false;
-
-		if(player == null) {
-			console = true;
-		}
+        else{
+		 player = (Player) sender;
+        }
 
 		// Our argument commands:
 		if(args.length == 0) {
@@ -93,7 +93,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 			if(args[0].equalsIgnoreCase("status")) {
 
 				// Get player
-				OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
+				//OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
 
 				// TODO: really do something!
 
@@ -163,7 +163,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 				));
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						"  &7Online time: &6" + (int) Math.floor(minutes / 60) + ":" + new DecimalFormat("00").format(minutes % 60)
+						"  &7Online time: &6" + (int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)
 				));
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',

@@ -26,12 +26,12 @@ public class Levelled extends JavaPlugin {
 	/**
 	 * Logging logger
 	 */
-	public static Logger logger = null;
+	protected static final Logger logger =  new Logger();
 
 	/**
 	 * Vault permissions
 	 */
-	public static Permission permission = null;
+	static Permission permission = null;
 
 	/**
 	 * Levels
@@ -79,7 +79,7 @@ public class Levelled extends JavaPlugin {
 
 	/**#@-*/
 
-	public static enum pointType {
+	public static enum PointType {
 
 		PLACED_BLOCKS,
 		BROKEN_BLOCKS,
@@ -94,9 +94,6 @@ public class Levelled extends JavaPlugin {
 	 */
 	@Override
 	public void onEnable() {
-
-		// Logger
-		Levelled.logger = new Logger();
 
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
@@ -328,7 +325,7 @@ public class Levelled extends JavaPlugin {
 	 * @param player Player
 	 * @param type Type of event
 	 */
-	public void addPoints(Player player, pointType type) {
+	public void addPoints(Player player, PointType type) {
 
 		this.addPoints(player, type, 1);
 
@@ -340,7 +337,7 @@ public class Levelled extends JavaPlugin {
 	 * @param type Type of event
 	 * @param count How many?
 	 */
-	public void addPoints(Player player, pointType type, int count) {
+	public void addPoints(Player player, PointType type, int count) {
 
 		// Check the players permission
 		if(!player.hasPermission("levelled.level"))
@@ -478,7 +475,7 @@ public class Levelled extends JavaPlugin {
 	 */
 	public void startMeasure(Player player) {
 
-		this.mLoginTime.put(player, Math.round(System.currentTimeMillis() / 1000));
+		this.mLoginTime.put(player, Math.round(System.currentTimeMillis() / 1000.0f));
 
 	}
 
@@ -489,7 +486,7 @@ public class Levelled extends JavaPlugin {
 			return;
 
 		int startTime, minutesToAdd;
-		int currentTime = Math.round(System.currentTimeMillis() / 1000);
+		int currentTime = Math.round(System.currentTimeMillis() / 1000.0f);
 
 		startTime = this.mLoginTime.get(player);
 
@@ -502,9 +499,9 @@ public class Levelled extends JavaPlugin {
 		}
 
 		// Calc the minutes to add
-		minutesToAdd = Math.round((currentTime - startTime) / 60);
+		minutesToAdd = Math.round((currentTime - startTime) / 60.0f);
 
-		this.addPoints(player, pointType.TIME, minutesToAdd);
+		this.addPoints(player, PointType.TIME, minutesToAdd);
 
 		// Clear cache
 		this.mLoginTime.remove(player);
@@ -542,4 +539,13 @@ public class Levelled extends JavaPlugin {
 	public List<Level> getLevels() {
 		return levels;
 	}
+
+	public static Permission getPermission() {
+		return permission;
+	}
+
+	public static Logger getPluginLogger(){
+		return logger;
+	}
+
 }

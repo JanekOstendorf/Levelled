@@ -71,7 +71,7 @@ public class BlockListener implements Listener {
 		// Do we have a blacklisted item or world here?
 		if(!blacklist.contains(evt.getItemInHand().getType()) && !this.ignoredWorlds.contains(evt.getPlayer().getWorld().getName()) && !(this.plugin.getConfig().getBoolean("ignoreCreative") && evt.getPlayer().getGameMode().getValue() == GameMode.CREATIVE.getValue())) {
 
-			this.plugin.addPoints(evt.getPlayer(), Levelled.pointType.PLACED_BLOCKS);
+			this.plugin.addPoints(evt.getPlayer(), Levelled.PointType.PLACED_BLOCKS);
 
 		}
 
@@ -82,7 +82,7 @@ public class BlockListener implements Listener {
 
         if(!this.ignoredWorlds.contains(evt.getPlayer().getWorld().getName()) && !(this.plugin.getConfig().getBoolean("ignoreCreative") && evt.getPlayer().getGameMode().getValue() == GameMode.CREATIVE.getValue())) {
 
-		    this.plugin.addPoints(evt.getPlayer(), Levelled.pointType.BROKEN_BLOCKS);
+		    this.plugin.addPoints(evt.getPlayer(), Levelled.PointType.BROKEN_BLOCKS);
 
         }
 

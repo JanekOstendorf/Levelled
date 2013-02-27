@@ -33,25 +33,21 @@ public class EntityListener implements Listener {
 	@EventHandler
 	public void onDeath(EntityDeathEvent e) {
 
-		// Has a player killed this entity?
-		if(e.getEntity().getKiller() instanceof Player) {
+		if(e.getEntity() instanceof Animals) {
 
-			if(e.getEntity() instanceof Animals) {
-
-				// Did this guy really kill the monster?
-				//if(e.getEntity().getLastDamageCause().getEntity().equals(e.getEntity().getKiller()))
-					this.plugin.addPoints(e.getEntity().getKiller(), Levelled.pointType.KILLED_ANIMAL);
-
-			}
-			else if(e.getEntity() instanceof Monster) {
-
-				// Did this guy really kill the monster?
-				//if(e.getEntity().get)
-					this.plugin.addPoints(e.getEntity().getKiller(), Levelled.pointType.KILLED_MONSTER);
-
-			}
+			// Did this guy really kill the monster?
+			//if(e.getEntity().getLastDamageCause().getEntity().equals(e.getEntity().getKiller()))
+			this.plugin.addPoints(e.getEntity().getKiller(), Levelled.PointType.KILLED_ANIMAL);
 
 		}
+		else if(e.getEntity() instanceof Monster) {
+
+			// Did this guy really kill the monster?
+			//if(e.getEntity().get)
+			this.plugin.addPoints(e.getEntity().getKiller(), Levelled.PointType.KILLED_MONSTER);
+		}
+
+
 
 	}
 
