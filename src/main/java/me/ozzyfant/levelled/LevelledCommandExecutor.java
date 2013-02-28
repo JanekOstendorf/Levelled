@@ -136,6 +136,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 				}
 
 				// TODO: check for permission levelled.status.others
+				// TODO: move to separate procedure. maybe merge into or use the current cmdStatus proc?
 
 			}
 

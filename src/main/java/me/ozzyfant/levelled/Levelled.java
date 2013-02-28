@@ -531,7 +531,7 @@ public class Levelled extends JavaPlugin {
 		// Begin at the end and get the last level greater than the current
 		int i = this.levels.size() - 1;
 
-		while(i >= 0 &&	points < this.levels.get(i).getNeededPoints()) {
+		while(i >= 0 && points < this.levels.get(i).getNeededPoints()) {
 
 			i--;
 
