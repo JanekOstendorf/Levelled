@@ -532,6 +532,30 @@ public class Levelled extends JavaPlugin {
 
 	}
 
+	/**
+	 * Get theoretic level by points
+	 * @param points Points
+	 * @return Level the player should have
+	 */
+	public Level getPlayerLevel(Double points) {
+
+		Level currentLevel;
+
+		// Begin at the end and get the last level greater than the current
+		int i = this.levels.size() - 1;
+
+		while(i >= 0 &&	points < this.levels.get(i).getNeededPoints()) {
+
+			i--;
+
+		}
+
+		currentLevel = this.levels.get(i);
+
+		return currentLevel;
+
+	}
+
 	/*
 	 * Getters and setters
 	 */

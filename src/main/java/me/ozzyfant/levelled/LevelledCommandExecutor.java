@@ -91,12 +91,50 @@ public class LevelledCommandExecutor implements CommandExecutor {
 			// Status command for other players
 			if(args[0].equalsIgnoreCase("status")) {
 
+				DecimalFormat dfPoints = (DecimalFormat)DecimalFormat.getInstance(Locale.ENGLISH);
+				dfPoints.applyPattern("#0.00");
+
 				// Get player
 				OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
 						"&7-- &6Level Status of " + cmdPlayer.getName() + " &7--"
 				));
-				// TODO: really do something!
+
+				if(plugin.storage.getConfiguration().contains("storage." + cmdPlayer.getName())) {
+
+					// Read from the config and write into the cache
+					Double points =  plugin.storage.getPlayerPoints(cmdPlayer);
+					int pblocks = plugin.storage.getPlayerPlacedBlocks(cmdPlayer);
+					int bblocks = plugin.storage.getPlayerBrokenBlocks(cmdPlayer);
+					int minutes = plugin.storage.getPlayerOnlineTime(cmdPlayer);
+
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"  &7Current level: &6" + plugin.getPlayerLevel(points).getName() + " &7(" + plugin.getPlayerLevel(points).getNeededPoints() + " points)"
+					));
+
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"  &7Activity points: &6" + dfPoints.format(points)
+					));
+
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"  &7Online time: &6" + (int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)
+					));
+
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"  &7Placed blocks: &6" + pblocks
+					));
+
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"  &7Broken blocks: &6" + bblocks
+					));
+
+				}
+				else{
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"&7This user is unknown to my level database."
+					));
+				}
+
 				// TODO: check for permission levelled.status.others
 
 			}

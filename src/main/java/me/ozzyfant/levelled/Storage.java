@@ -5,6 +5,7 @@
  */
 package me.ozzyfant.levelled;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -77,11 +78,39 @@ public class Storage {
 	}
 
 	/**
+	 * Get a player's activity points
+	 * @param player OfflinePlayer
+	 * @return Activity points
+	 */
+	public double getPlayerPoints(OfflinePlayer player) {
+
+		if(this.configuration.contains("storage." + player.getName() + ".activityPoints"))
+			return this.configuration.getDouble("storage." + player.getName() + ".activityPoints");
+
+		return 0;
+
+	}
+
+	/**
 	 * Get a player's number of placed blocks
 	 * @param player Player
 	 * @return Number of placed blocks
 	 */
 	public int getPlayerPlacedBlocks(Player player) {
+
+		if(this.configuration.contains("storage." + player.getName() + ".placedBlocks"))
+			return this.configuration.getInt("storage." + player.getName() + ".placedBlocks");
+
+		return 0;
+
+	}
+
+	/**
+	 * Get a player's number of placed blocks
+	 * @param player OfflinePlayer
+	 * @return Number of placed blocks
+	 */
+	public int getPlayerPlacedBlocks(OfflinePlayer player) {
 
 		if(this.configuration.contains("storage." + player.getName() + ".placedBlocks"))
 			return this.configuration.getInt("storage." + player.getName() + ".placedBlocks");
@@ -105,11 +134,39 @@ public class Storage {
 	}
 
 	/**
+	 * Get a player's number of broken blocks
+	 * @param player OfflinePlayer
+	 * @return Number of placed blocks
+	 */
+	public int getPlayerBrokenBlocks(OfflinePlayer player) {
+
+		if(this.configuration.contains("storage." + player.getName() + ".brokenBlocks"))
+			return this.configuration.getInt("storage." + player.getName() + ".brokenBlocks");
+
+		return 0;
+
+	}
+
+	/**
 	 * Get a player's online time in minutes
 	 * @param player Player
 	 * @return Online time in minutes
 	 */
 	public int getPlayerOnlineTime(Player player) {
+
+		if(this.configuration.contains("storage." + player.getName() + ".onlineTime"))
+			return this.configuration.getInt("storage." + player.getName() + ".onlineTime");
+
+		return 0;
+
+	}
+
+	/**
+	 * Get a player's online time in minutes
+	 * @param player OfflinePlayer
+	 * @return Online time in minutes
+	 */
+	public int getPlayerOnlineTime(OfflinePlayer player) {
 
 		if(this.configuration.contains("storage." + player.getName() + ".onlineTime"))
 			return this.configuration.getInt("storage." + player.getName() + ".onlineTime");
