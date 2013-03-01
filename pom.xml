@@ -32,6 +32,12 @@
             <artifactId>bukkit</artifactId>
             <version>1.4.7-R1.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>${file.encoding}</project.build.sourceEncoding>
