@@ -41,7 +41,7 @@ public class LoggerTest extends TestCase {
      */
     public void testSevere() {
         System.out.println("severe");
-        String message = "Test Server Logging";
+        String message = "Test severe Logging";
         Logger instance = new Logger();
         instance.severe(message);
     }
