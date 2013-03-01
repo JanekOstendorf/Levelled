@@ -91,7 +91,6 @@ public class LevelledCommandExecutor implements CommandExecutor {
 				OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
 				cmdStatus(player, cmdPlayer, command, label, cmdArgs);
 
-				// TODO: check for permission levelled.status.others
 			}
 
 		}
@@ -168,13 +167,20 @@ public class LevelledCommandExecutor implements CommandExecutor {
 						"  &7Broken blocks: &6" + bblocks
 				));
 
-			} else {
+			}
+			else {
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						"&7This user is unknown to my level database."
+						"&7You do not have the required permissions."
 				));
-
 			}
+
+		}
+		else {
+
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+					"&7This user is unknown to my level database."
+			));
 
 		}
 
@@ -225,6 +231,13 @@ public class LevelledCommandExecutor implements CommandExecutor {
 						"&7This user is unknown to my level database."
 				));
 			}
+
+		}
+		else {
+
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+					"&7You do not have the required permissions."
+			));
 
 		}
 
