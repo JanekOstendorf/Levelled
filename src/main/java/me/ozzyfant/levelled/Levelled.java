@@ -95,8 +95,11 @@ public class Levelled extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
-		this.getConfig().options().copyDefaults(true);
-		this.saveConfig();
+		// Does the config exist?
+		if(!(new File(this.getDataFolder() + File.separator + "config.yml")).exists()) {
+			this.getConfig().options().copyDefaults(true);
+			this.saveConfig();
+		}
 
 		// Load levels
 		this.levels = this.fetchLevels();
