@@ -45,9 +45,8 @@ public class LevelledCommandExecutor implements CommandExecutor {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED + "You must be a player!");
 			console = true;
-		} else {
-			player = (Player) sender;
 		}
+		player = (Player) sender;
 
 		// Our argument commands:
 		if (args.length == 0) {
