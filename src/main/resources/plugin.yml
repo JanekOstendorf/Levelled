@@ -15,7 +15,6 @@ commands:
         aliases:
             - levelled
             - lvl
-        permission: levelled.level
         usage: /<command>
 
 permissions:
