@@ -54,13 +54,17 @@ public class LevelledCommandExecutor implements CommandExecutor {
 			// Eww, console
 			if (console) {
 				player.sendMessage(ChatColor.RED + "This command may only be run by a player!");
-				return true;
+				return false;
 			}
 
 			this.cmdStatus(player, command, label, args);
 
 		} else if (args.length == 1) {
 
+                        if (console) {
+				player.sendMessage(ChatColor.RED + "This command may only be run by a player!");
+				return false;
+			}
 
 			String[] cmdArgs = new String[args.length - 1];
 			cmdArgs = Arrays.asList(args).subList(1, args.length).toArray(cmdArgs);
