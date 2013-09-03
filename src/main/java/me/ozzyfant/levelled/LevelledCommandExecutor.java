@@ -103,7 +103,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 	}
 
 	private void cmdStatus(Player player, Command command, String label, String[] args) {
-
+            
 		// Check permissions
 		if (plugin.storage.playerExists(player)) {
 

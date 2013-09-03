@@ -34,7 +34,7 @@ messages:
     commands:
       status:
         name: "&7-- &6Level Status of $player &7--"
-        current: "  &7Current level: &6 $currentlevelname &7($needpoints points)"
+        current: "  &7Current level: &6 $currentlevelname &7($points points)"
         next: "  &7Next level: &6 $nextlevelname &7($neededpoints points)"
         nonext: "  &7Next level: &6None. You've reached the maximum."
         points: "  &7Activity points: &6 $points"
