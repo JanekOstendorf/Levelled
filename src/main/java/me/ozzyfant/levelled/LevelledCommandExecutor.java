@@ -133,42 +133,42 @@ public class LevelledCommandExecutor implements CommandExecutor {
 
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						plugin.getConfig().getString("messages.commands.status.name").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+						plugin.getConfig().getString("messages.commands.status.name").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 				));
 
                                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						plugin.getConfig().getString("messages.commands.status.current").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+						plugin.getConfig().getString("messages.commands.status.current").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 				));
 
 
 				if (nextLevel.equals(currentLevel)) {
 
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							plugin.getConfig().getString("messages.commands.status.nonext").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+							plugin.getConfig().getString("messages.commands.status.nonext").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 					));
 
 				} else {
 
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							plugin.getConfig().getString("messages.commands.status.next").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+							plugin.getConfig().getString("messages.commands.status.next").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 					));
 
 				}
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						plugin.getConfig().getString("messages.commands.status.points").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+						plugin.getConfig().getString("messages.commands.status.points").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 				));
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						plugin.getConfig().getString("messages.commands.status.time").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+						plugin.getConfig().getString("messages.commands.status.time").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 				));
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						plugin.getConfig().getString("messages.commands.status.placed").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+						plugin.getConfig().getString("messages.commands.status.placed").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 				));
 
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						plugin.getConfig().getString("messages.commands.status.broken").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$needpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("§placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
+						plugin.getConfig().getString("messages.commands.status.broken").replace("$player",player.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints",Double.toString(plugin.getPlayerLevel(points).getNeededPoints())).replace("$nextlevelname", nextLevel.getName()).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
 				));
 
 			}
