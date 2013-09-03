@@ -49,7 +49,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent evt) {
-
+                System.out.println("KICKED: "+evt.getPlayer());
 		this.playerDisconnect(evt.getPlayer());
 
 	}

@@ -30,7 +30,18 @@ messages:
     # Message to send to just the player
     # Variables: %level% (name of the reached level)
     message: "You've just reached %level%!"
-
+    
+    commands:
+      status:
+        name: "&7-- &6Level Status of $name &7--"
+        current: "  &7Current level: &6 $currentlevelname &7($needpoints points)"
+        next: "  &7Next level: &6 $nextlevelname &7($neededpoints points)"
+        nonext: "  &7Next level: &6None. You've reached the maximum."
+        points: "  &7Activity points: &6 $points"
+        time: "&7Online time: &6 $time"
+        placed: "  &7Placed blocks: &6 $placed"
+        broken: "  &7Broken blocks: &6 $broken" 
+    
 # Levels
 levels:
 
