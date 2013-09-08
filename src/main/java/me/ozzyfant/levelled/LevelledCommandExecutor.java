@@ -64,6 +64,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
                         if (args[0].equalsIgnoreCase("reload")) {
                             Bukkit.broadcastMessage("[Levelled] Reloading");
                             plugin.onDisable();
+                            plugin.reloadConfig();
                             plugin.onEnable();
                             Bukkit.broadcastMessage("[Levelled] Reload finished");
                         }
