@@ -62,11 +62,9 @@ public class LevelledCommandExecutor implements CommandExecutor {
 
 		} else if (args.length == 1) {
                         if (args[0].equalsIgnoreCase("reload")) {
-                            Bukkit.broadcastMessage("[Levelled] Reloading");
                             plugin.onDisable();
                             plugin.reloadConfig();
                             plugin.onEnable();
-                            Bukkit.broadcastMessage("[Levelled] Reload finished");
                         }
                         if (console) {
 				player.sendMessage(ChatColor.RED + "This command may only be run by a player!");
