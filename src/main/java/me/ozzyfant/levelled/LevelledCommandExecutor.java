@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Locale;
+import org.bukkit.Bukkit;
 
 /**
  * Command executor executes commands executing commands
@@ -43,7 +44,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
 
 		// Is this a player?
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "You must be a player!");
+			sender.sendMessage(ChatColor.RED + "You are no player!");
 			console = true;
 		}
 		player = (Player) sender;
@@ -60,7 +61,12 @@ public class LevelledCommandExecutor implements CommandExecutor {
 			this.cmdStatus(player, command, label, args);
 
 		} else if (args.length == 1) {
-
+                        if (args[0].equalsIgnoreCase("reload")) {
+                            Bukkit.broadcastMessage("[Levelled] Reloading");
+                            plugin.onDisable();
+                            plugin.onEnable();
+                            Bukkit.broadcastMessage("[Levelled] Reload finished");
+                        }
                         if (console) {
 				player.sendMessage(ChatColor.RED + "This command may only be run by a player!");
 				return false;
