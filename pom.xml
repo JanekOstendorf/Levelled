@@ -6,7 +6,7 @@
 
     <groupId>me.ozzyfant.levelled</groupId>
     <artifactId>Levelled</artifactId>
-    <version>1.0_Minecraft_1.7.2</version>
+    <version>1.0_Minecraft_1.7.2_weekly</version>
     <name>Levelled</name>
 
     <packaging>jar</packaging>
