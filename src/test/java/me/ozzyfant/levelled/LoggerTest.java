@@ -41,4 +41,14 @@ public class LoggerTest extends TestCase {
         Logger instance = new Logger();
         instance.severe(message);
     }
+    
+    /**
+     * Test of warning method, of class Logger.
+     */
+    public void testWarning() {
+        System.out.println("warning");
+        String message = "Test warning Logging";
+        Logger instance = new Logger();
+        instance.warning(message);
+    }
 }
