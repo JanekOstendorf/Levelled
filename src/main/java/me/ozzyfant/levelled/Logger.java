@@ -44,5 +44,16 @@ public class Logger {
 		this.log.log(Level.SEVERE, "[Levelled] " + message);
 
 	}
+	
+        /**
+	 * Log an warning message
+	 *
+	 * @param message Message to be logged
+	 */
+	public void warning(String message) {
+
+		this.log.log(Level.WARNING, "[Levelled] " + message);
+
+	}
 
 }

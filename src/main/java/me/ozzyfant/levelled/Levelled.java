@@ -42,6 +42,11 @@ public class Levelled extends JavaPlugin {
 	 * Level names
 	 */
 	protected String[] levelNames;
+        
+        /**
+	 * Level groups
+	 */
+	protected String[] levelGroups;
 
 	/**
 	 * Storage
@@ -172,6 +177,7 @@ public class Levelled extends JavaPlugin {
 
 		// Level names
 		this.levelNames = new String[allLevelsConfig.getKeys(false).size()];
+		this.levelGroups = new String[allLevelsConfig.getKeys(false).size()];
 
 		// Buffer
 		List<Level> allLevels = new ArrayList<Level>();
@@ -184,7 +190,7 @@ public class Levelled extends JavaPlugin {
 
 			allLevels.add(i, new Level(currentLevelConfig, levelKey, i));
 			this.levelNames[i] = allLevels.get(i).getName();
-
+                        this.levelGroups[i] = levelKey;
 			i++;
 
 		}
@@ -422,10 +428,11 @@ public class Levelled extends JavaPlugin {
 			// Remove all old groups
 			for(String group : permission.getPlayerGroups(player)) {
 
-				if(Arrays.asList(this.levelNames).contains(group)) {
+                                
+				if(Arrays.asList(this.levelGroups).contains(group)) {
 
 					permission.playerRemoveGroup(player, group);
-
+                                        
 				}
 
 			}
