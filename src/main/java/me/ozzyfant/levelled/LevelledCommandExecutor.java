@@ -65,7 +65,7 @@ public class LevelledCommandExecutor implements CommandExecutor {
                 plugin.reloadConfig();
                 plugin.onEnable();
             } else {
-                OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[1]);
+                OfflinePlayer cmdPlayer = plugin.getServer().getOfflinePlayer(args[0]);
                 cmdStatus(player, cmdPlayer, command, label, new String[0]);
             }
             if (console) {
@@ -203,10 +203,6 @@ public class LevelledCommandExecutor implements CommandExecutor {
             dfPoints.applyPattern("#0.00");
 
             if (plugin.storage.getConfiguration().contains("storage." + cmdPlayer.getName())) {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&7-- &6Level Status of " + cmdPlayer.getName() + " &7--"
-                ));
-
                 // Read from the config and write into the cache
                 Double points = plugin.storage.getPlayerPoints(cmdPlayer);
                 int pblocks = plugin.storage.getPlayerPlacedBlocks(cmdPlayer);
@@ -219,10 +215,6 @@ public class LevelledCommandExecutor implements CommandExecutor {
 
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         plugin.getConfig().getString("messages.commands.status.current").replace("$player", cmdPlayer.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints", dfPoints.format(plugin.getPlayerLevel(points).getNeededPoints())).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
-                ));
-
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        plugin.getConfig().getString("messages.commands.status.next").replace("$player", cmdPlayer.getName()).replace("$currentlevelname", plugin.getPlayerLevel(points).getName()).replace("$neededpoints", dfPoints.format(plugin.getPlayerLevel(points).getNeededPoints())).replace("$points", dfPoints.format(points)).replace("$time", ((int) Math.floor(minutes / 60.0f) + ":" + new DecimalFormat("00").format(minutes % 60)).toString()).replace("$placed", Integer.toString(pblocks)).replace("$broken", Integer.toString(bblocks))
                 ));
 
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
