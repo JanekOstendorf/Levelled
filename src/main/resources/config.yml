@@ -23,7 +23,8 @@ messages:
 
     # Shall we tell the whole server that somebody levels up?
     global-notify: true
-
+    # Shall we display the help in the german language?
+    german: false
     # Message to broadcast, when messages.global-notify is true
     # Variables: %player% (player name of the guy levelling up), %level% (name of the reached level)
     global-message: "%player% has just reached %level%."
@@ -41,7 +42,8 @@ messages:
         time: "&7Online time: &6 $time"
         placed: "  &7Placed blocks: &6 $placed"
         broken: "  &7Broken blocks: &6 $broken" 
-    
+        unknown: "  This User is unknown to my level database"
+    nopermission: "  You dont have the required permissions"
 # Levels
 levels:
 

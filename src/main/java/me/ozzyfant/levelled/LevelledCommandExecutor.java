@@ -43,7 +43,10 @@ public class LevelledCommandExecutor implements CommandExecutor {
 
         // Is this a player?
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "You are no player!");
+                if(plugin.getConfig().getBoolean("messages.language.german") == false)
+                player.sendMessage(ChatColor.RED + "You are no player!");
+                else
+                player.sendMessage(ChatColor.RED + "Du bist kein Spieler");
             console = true;
         }
         player = (Player) sender;
@@ -53,7 +56,10 @@ public class LevelledCommandExecutor implements CommandExecutor {
 
             // Eww, console
             if (console) {
+                if(plugin.getConfig().getBoolean("messages.language.german") == false)
                 player.sendMessage(ChatColor.RED + "This command may only be run by a player!");
+                else
+                player.sendMessage(ChatColor.RED + "Dieser Befehl kann nur von einem Spieler benutzt werden");
                 return false;
             }
 
@@ -69,7 +75,10 @@ public class LevelledCommandExecutor implements CommandExecutor {
                 cmdStatus(player, cmdPlayer, command, label, new String[0]);
             }
             if (console) {
+                if(plugin.getConfig().getBoolean("messages.language.german") == false)
                 player.sendMessage(ChatColor.RED + "This command may only be run by a player!");
+                else
+                player.sendMessage(ChatColor.RED + "Dieser Befehl kann nur von einem Spieler benutzt werden");
                 return false;
             }
 
@@ -82,11 +91,14 @@ public class LevelledCommandExecutor implements CommandExecutor {
                 this.cmdHelp(player, command, label, cmdArgs);
 
             } else if (args[0].equalsIgnoreCase("status")) {
-
+                if(plugin.getConfig().getBoolean("messages.language.german") == false)
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                         "&6Usage: &7/" + command.getName() + " status <player>"
                 ));
-
+                else
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        "&Verwendung: &7/" + command.getName() + " status <spieler>"
+                ));
             }
 
         } else if (args.length == 2) {
@@ -180,14 +192,14 @@ public class LevelledCommandExecutor implements CommandExecutor {
             } else {
 
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&7You do not have the required permissions."
+plugin.getConfig().getString("messages.commands.permission")
                 ));
             }
 
         } else {
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    "&7This user is unknown to my level database."
+                    plugin.getConfig().getString("messages.commands.status.unknown")
             ));
 
         }
@@ -235,14 +247,14 @@ public class LevelledCommandExecutor implements CommandExecutor {
 
             } else {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&7This user is unknown to my level database."
+                        plugin.getConfig().getString("messages.commands.status.unknown")
                 ));
             }
 
         } else {
 
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    "&7You do not have the required permissions."
+                    plugin.getConfig().getString("messages.commands.nopermission")
             ));
 
         }
@@ -250,7 +262,8 @@ public class LevelledCommandExecutor implements CommandExecutor {
     }
 
     private void cmdHelp(Player player, Command command, String label, String[] args) {
-
+        if(plugin.getConfig().getBoolean("messages.language.german") == false)
+        {
         // Send our help text
         player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                 "&7-- &6Levelled help &7--"
@@ -268,6 +281,27 @@ public class LevelledCommandExecutor implements CommandExecutor {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     "    &7Show current level status"
             ));
+        }
+        }
+        else{
+                    // Send our help text
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                "&7-- &6Levelled Hilfe &7--"
+        ));
+
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                "  &7<> = benötigt, [] = optional"
+        ));
+
+        // Level status
+        if (player.hasPermission("levelled.status")) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    "  &6/" + command.getName()
+            ));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    "    &7Zeigt den momentanen Level Status"
+            ));
+        }
         }
 
     }
