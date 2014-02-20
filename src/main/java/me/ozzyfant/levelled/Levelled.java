@@ -17,6 +17,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.*;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 
 /**
  * One class to rules them all
@@ -430,15 +432,18 @@ public class Levelled extends JavaPlugin {
 
                                 
 				if(Arrays.asList(this.levelGroups).contains(group)) {
-
-					permission.playerRemoveGroup(player, group);
+                                    
+                                    
+                                    for(World world : Bukkit.getWorlds())
+					permission.playerRemoveGroup(world, player.getName(), group);
                                         
 				}
 
 			}
 
 			// Level up
-			permission.playerAddGroup(player, levelToGain.getGroup());
+                        for(World world : Bukkit.getWorlds())
+                            permission.playerAddGroup(world, player.getName(), levelToGain.getGroup());
 
 		}
 		catch(UnsupportedOperationException e) {
